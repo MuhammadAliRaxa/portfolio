@@ -1,35 +1,39 @@
 'use client'
 
-import ScrollyCanvas from '@/components/ScrollyCanvas'
-import Overlay from '@/components/Overlay'
+import Header from '@/components/Header'
+import ParticleCanvas from '@/components/ParticleCanvas'
+import Hero from '@/components/Hero'
 import Projects from '@/components/Projects'
 import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
+import Education from '@/components/Education'
 import Contact from '@/components/Contact'
-import Header from '@/components/Header'
 
 export default function Home() {
   return (
-    <main className="relative bg-dark-950">
-      {/* Fixed Header */}
+    <main className="relative min-h-screen w-full bg-[#08090d] text-white">
+      {/* Fixed Navigation Header */}
       <Header />
 
-      {/* Scrollytelling Section */}
-      <div className="relative">
-        <ScrollyCanvas />
-        <Overlay />
-      </div>
+      {/* 60fps Interactive Tech Particle Canvas */}
+      <ParticleCanvas />
 
-      {/* Projects Section */}
+      {/* Hero Section with 3D Profile Avatar */}
+      <Hero />
+
+      {/* Featured Projects & Filter Tabs */}
       <Projects />
 
-      {/* Experience Section */}
+      {/* Work Experience Timeline */}
       <Experience />
 
-      {/* Skills Section */}
+      {/* Skills & Technical Mastery */}
       <Skills />
 
-      {/* Contact Section */}
+      {/* Academic Education Qualification */}
+      <Education />
+
+      {/* Contact Terminal */}
       <Contact />
     </main>
   )

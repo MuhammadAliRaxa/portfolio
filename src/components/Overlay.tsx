@@ -29,16 +29,19 @@ const Overlay: React.FC = () => {
       <div className="fixed inset-0 z-10 flex flex-col items-center justify-center">
         {/* Section 1: Hero Text - Center */}
         <motion.div
-          className="absolute inset-0 flex flex-col items-center justify-center text-center"
+          className="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
           style={{ opacity: opacity1, y: y1 }}
         >
-          <motion.h1 className="text-6xl md:text-8xl font-bold tracking-tight">
+          <motion.p className="mb-2 text-sm md:text-base font-semibold tracking-widest text-cyan-400 uppercase">
+            Flutter Developer | Mobile App Developer
+          </motion.p>
+          <motion.h1 className="text-5xl md:text-8xl font-bold tracking-tight">
             <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-              Senior Flutter Developer
+              Muhammad Ali Raza
             </span>
           </motion.h1>
-          <motion.p className="mt-6 text-xl md:text-2xl text-gray-300 font-light max-w-2xl">
-            Crafting beautiful, performant native apps across platforms
+          <motion.p className="mt-6 text-lg md:text-xl text-gray-300 font-light max-w-3xl leading-relaxed">
+            Results-driven Flutter Developer & CS graduate with 2+ years of experience delivering cross-platform Android and iOS applications using Clean Architecture (Bloc, Riverpod) and Firebase.
           </motion.p>
         </motion.div>
 
@@ -48,14 +51,14 @@ const Overlay: React.FC = () => {
           style={{ opacity: opacity2, y: y2 }}
         >
           <motion.div className="max-w-lg">
-            <h2 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-              I build <br />
+            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+              Architecting <br />
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                production apps
+                Multi-Tenant Apps
               </span>
             </h2>
-            <p className="mt-4 text-lg text-gray-400">
-              Award-winning iOS and Android applications with 500K+ downloads.
+            <p className="mt-4 text-base md:text-lg text-gray-400">
+              Building scalable codebases for AI creative tools, e-commerce platforms, product scanning incentives, and real-time backend integrations.
             </p>
           </motion.div>
         </motion.div>
@@ -66,15 +69,15 @@ const Overlay: React.FC = () => {
           style={{ opacity: opacity3, y: y3 }}
         >
           <motion.div className="max-w-lg text-right">
-            <h2 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
               <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                 Flutter & State
               </span>
               <br />
-              Management Expertise
+              Management Mastery
             </h2>
-            <p className="mt-4 text-lg text-gray-400">
-              Proficient in Riverpod, GetX, Provider, and custom architecture patterns.
+            <p className="mt-4 text-base md:text-lg text-gray-400">
+              Expertise in Bloc, Riverpod, Provider, GetX, RESTful APIs, Firebase Auth & Firestore, and Play Store / App Store deployments.
             </p>
           </motion.div>
         </motion.div>
