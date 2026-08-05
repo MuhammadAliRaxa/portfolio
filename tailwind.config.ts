@@ -24,7 +24,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        heading: ['Space Grotesk', 'sans-serif'],
+        mono: ['Fira Code', 'JetBrains Mono', 'monospace'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

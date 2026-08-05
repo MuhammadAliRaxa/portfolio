@@ -51,65 +51,65 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#050508]/90 py-3 border-b border-red-900/40 backdrop-blur-xl shadow-2xl shadow-red-950/40'
+          ? 'bg-[#090a0f]/90 py-3 border-b border-zinc-800/80 backdrop-blur-md shadow-xl'
           : 'bg-transparent py-5'
       }`}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-between">
           
-          {/* Brand Logo with Red Avatar Frame */}
+          {/* Brand Logo */}
           <motion.div
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-red-500/80 p-0.5 shadow-md shadow-red-600/30">
+            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-zinc-700 bg-zinc-800 p-0.5 shadow-sm">
               <Image
                 src="/profile-new.png"
                 alt="Muhammad Ali Raza"
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 className="h-full w-full rounded-full object-cover object-center"
               />
             </div>
             <div>
-              <span className="bg-gradient-to-r from-white via-red-200 to-red-500 bg-clip-text text-base font-extrabold text-transparent sm:text-lg">
+              <span className="text-base font-bold text-white tracking-tight sm:text-lg">
                 Muhammad Ali Raza
               </span>
-              <p className="hidden sm:block text-[10px] font-semibold text-red-500 uppercase tracking-widest">
-                Flutter Developer
+              <p className="hidden sm:block text-[11px] font-mono font-medium text-zinc-400">
+                Flutter & Mobile App Engineer
               </p>
             </div>
           </motion.div>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5 rounded-full border border-gray-800/90 bg-[#090910]/80 p-1.5 backdrop-blur-md">
+          <nav className="hidden md:flex items-center gap-1 rounded-full border border-zinc-800 bg-[#12131a]/80 p-1.5 backdrop-blur-md">
             {navLinks.map((link) => (
               <motion.button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium transition-colors ${
                   activeSection === link.id
                     ? 'text-white'
-                    : 'text-gray-400 hover:text-gray-200'
+                    : 'text-zinc-400 hover:text-zinc-200'
                 }`}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {link.icon}
                 <span>{link.label}</span>
 
                 {activeSection === link.id && (
                   <motion.div
-                    className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-red-600/30 to-rose-600/30 border border-red-500/50"
+                    className="absolute inset-0 -z-10 rounded-full bg-zinc-800 border border-zinc-700"
                     layoutId="activeNavTab"
-                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
               </motion.button>
@@ -119,11 +119,11 @@ const Header: React.FC = () => {
           {/* CTA Button */}
           <motion.a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 px-4 py-2 text-xs font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:shadow-red-600/50 sm:px-5 sm:py-2.5 sm:text-sm"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-xs font-semibold text-white shadow-md transition-all hover:bg-red-500 sm:px-5 sm:py-2.5 sm:text-sm"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
-            <span>Hire Me</span>
+            <span>Get In Touch</span>
             <Send className="h-3.5 w-3.5" />
           </motion.a>
         </div>
@@ -133,3 +133,4 @@ const Header: React.FC = () => {
 }
 
 export default Header
+

@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, CheckCircle2, ShieldAlert, Cpu, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowUpRight, CheckCircle2, ShieldAlert, Cpu, FolderGit2, X } from 'lucide-react'
 
 interface Project {
   id: number
@@ -19,6 +20,7 @@ interface Project {
   accentColor: string
   badgeText: string
   icon: string
+  image?: string
   githubUrl?: string
   metrics: { label: string; value: string }[]
 }
@@ -32,6 +34,7 @@ const projects: Project[] = [
     category: 'AI & ML',
     badgeText: 'AI POWERED',
     accentColor: '#ef4444',
+    image: '/snap2sketch.jpg',
     shortDescription:
       'Transforms user photos into cartoon or sketch artwork via backend AI API, featuring an interactive Canvas Book module.',
     fullDescription:
@@ -64,6 +67,7 @@ const projects: Project[] = [
     category: 'E-Commerce',
     badgeText: 'REAL-TIME SYNC',
     accentColor: '#dc2626',
+    image: '/ecommerce.jpg',
     githubUrl: 'https://github.com/MuhammadAliRaxa/E-Commerce',
     shortDescription:
       'Full-featured e-commerce app with real-time Firestore data sync, cart tracking, and an AI support chatbot.',
@@ -92,96 +96,70 @@ const projects: Project[] = [
   {
     id: 3,
     number: '03',
-    title: 'AI API Integration Suite',
-    subtitle: 'OpenAI GPT, Gemini & Google ML Kit Core',
-    category: 'AI & ML',
-    badgeText: 'MULTI-AI MODEL',
-    accentColor: '#f87171',
+    title: 'MR Trading',
+    subtitle: 'Product-Scanning Sales & Admin Incentive Payouts',
+    category: 'Multi-Tenant',
+    badgeText: 'INCENTIVE & SALES',
+    accentColor: '#ef4444',
+    image: '/mrtrading.jpg',
     shortDescription:
-      'Engineered AI layers for Flutter apps delivering text summarization, real-time image recognition, and NLP.',
+      'A platform for Admins and Technicians to scan products, track sales reports, and manage incentive payouts.',
     fullDescription:
-      'Integrated OpenAI GPT, Google Gemini, and Google ML Kit across multiple Flutter apps, delivering text summarisation, real-time image recognition, and natural language processing features. Engineered secure, rate-limited AI communication layers with comprehensive error handling, ensuring reliable and stable performance in production.',
+      'Engineered MR Trading, a mobile platform for Admins and Technicians to scan QR code products, register sales, track real-time sales reports, and manage technician incentive payouts. Built with Flutter for Android and iOS, featuring identity verification, balance tracking, and role-based admin approval controls.',
     challenge:
-      'Managing API rate limits, large payload payloads, and robust fallback mechanisms across multiple AI models in production.',
+      'Building reliable real-time camera QR scanning alongside secure role-based payout approvals and sales analytics filtering.',
     solution:
-      'Designed rate-limited AI driver modules with exponential backoff retries, robust error handling, and clean asynchronous abstraction layers.',
-    tags: ['Flutter', 'Dart', 'OpenAI GPT', 'Gemini', 'Google ML Kit', 'REST APIs'],
+      'Integrated high-performance mobile QR code scanning SDK, structured Bloc state management, and secured Cloud Firestore rules for payout verifications.',
+    tags: ['Flutter', 'Dart', 'QR Scanner', 'Firebase', 'Sales Analytics', 'Admin Panel'],
     features: [
-      'Multi-model integration (OpenAI GPT, Gemini, ML Kit)',
-      'Real-time image recognition & computer vision features',
-      'Natural language processing & automated text summarisation',
-      'Secure, rate-limited AI communication layers',
-      'Comprehensive error handling and failure recovery',
-      'Production-proven stability across Flutter apps',
+      'Instant QR code product scanning for registering sales',
+      'Real-time Sales Reports with status filters (Pending, Approved, Paid)',
+      'Technician earnings balance tracking & ID card profile verification',
+      'Admin panel for reviewing sales & processing incentive payouts',
+      'Cross-platform deployment on Android and iOS',
     ],
     metrics: [
-      { label: 'Models', value: 'GPT & Gemini' },
-      { label: 'Vision', value: 'ML Kit' },
-      { label: 'Layer', value: 'Rate-Limited' },
+      { label: 'Scanner', value: 'QR Code' },
+      { label: 'Payouts', value: 'Admin Panel' },
+      { label: 'Reports', value: 'Real-Time' },
     ],
-    icon: '🤖',
+    icon: '📊',
   },
   {
     id: 4,
     number: '04',
-    title: 'Ramza Electric Bike',
-    subtitle: 'E-Commerce Mobile Sales Platform',
-    category: 'E-Commerce',
-    badgeText: 'E-MOBILITY',
-    accentColor: '#b91c1c',
-    shortDescription:
-      'Specialized e-commerce app for electric bike sales featuring product catalog, cart management, and order processing.',
-    fullDescription:
-      'Built Ramza Electric Bike, an e-commerce mobile app tailored for electric bike sales. Developed with Flutter, Bloc, and RESTful APIs, providing product catalog browsing, detailed bike spec sheets, seamless cart management, and streamlined order processing for clients.',
-    challenge:
-      'Rendering complex bike specifications and handling multi-item cart state efficiently on mobile viewports.',
-    solution:
-      'Structured Bloc state management with clean UI widget decomposition and optimized RESTful API payload consumption.',
-    tags: ['Flutter', 'Dart', 'Bloc', 'REST API', 'E-Commerce'],
-    features: [
-      'Electric bike product catalog & detail views',
-      'Cart management & checkout order processing',
-      'RESTful API integration with structured error handling',
-      'Bloc state management for reactive UI updates',
-    ],
-    metrics: [
-      { label: 'Domain', value: 'E-Mobility' },
-      { label: 'State', value: 'Bloc' },
-      { label: 'Backend', value: 'REST APIs' },
-    ],
-    icon: '⚡',
-  },
-  {
-    id: 5,
-    number: '05',
-    title: 'MR Enterprises',
-    subtitle: 'Product-Scanning Incentive & Admin Payouts',
+    title: 'Trust Docs',
+    subtitle: 'Secure Document Cloud & Admin Verification System',
     category: 'Multi-Tenant',
-    badgeText: 'INCENTIVE APP',
-    accentColor: '#ef4444',
+    badgeText: 'CLOUD & SECURITY',
+    accentColor: '#3b82f6',
+    image: '/trustdocs.jpg',
     shortDescription:
-      'Product-scanning reward platform enabling users to scan items to earn rewards, with admin payout processing.',
+      'Encrypted cloud document vault with multi-format file upload (PDF, JPG, PNG), real-time status tracking, and admin approval verification workflows.',
     fullDescription:
-      'Built MR Enterprises, a product-scanning incentive app enabling users to scan product barcodes to earn rewards. Features an integrated admin panel to review, verify, and process user incentive payouts securely.',
+      'Built Trust Docs, a cross-platform mobile cloud document vault engineered with Flutter and Firebase. Users securely upload documents of any file format (PDF, images, archives) into encrypted cloud storage. Features an integrated admin verification workflow where administrators review, approve, or flag uploaded documents, enabling users to track document approval status in real-time and download verified files whenever needed on mobile.',
     challenge:
-      'Building reliable real-time camera scanning alongside role-based access for incentive approval.',
+      'Handling multi-format file binary streaming, secure Cloud Storage access rules, and real-time status updates between user client and admin verification dashboards.',
     solution:
-      'Integrated high-performance mobile barcode scanning SDK and secured Firestore rules for admin payout operations.',
-    tags: ['Flutter', 'Firebase', 'Barcode Scanner', 'Provider', 'Admin Panel'],
+      'Architected Cloud Firestore security rules with Firebase Storage access tokens, Bloc state management, and real-time stream listeners for instant approval status reflection.',
+    tags: ['Flutter', 'Dart', 'Firebase Storage', 'Cloud Firestore', 'Bloc', 'Document Vault'],
     features: [
-      'Instant barcode product scanning for reward points',
-      'User earnings dashboard & transaction history',
-      'Admin panel to review & process incentive payouts',
-      'Firebase Auth & Firestore rule-based security',
+      'Multi-format file upload (PDF, JPG, PNG, DOCX) to encrypted cloud',
+      'Real-time document verification status dashboard (Pending, Approved)',
+      'Admin verification panel for document review & approval workflows',
+      'Secure document download & offline caching capabilities',
+      'User profile & account authentication with Firebase Auth',
+      'Role-based access control (User vs. Admin approval rights)',
     ],
     metrics: [
-      { label: 'Scan', value: 'Barcode/QR' },
-      { label: 'Admin', value: 'Payout Panel' },
-      { label: 'Backend', value: 'Firebase' },
+      { label: 'Storage', value: 'Cloud Vault' },
+      { label: 'Approval', value: 'Admin Panel' },
+      { label: 'Formats', value: 'All Files' },
     ],
-    icon: '📱',
+    icon: '📄',
   },
 ]
+
 
 const categories = ['All', 'E-Commerce', 'AI & ML', 'Multi-Tenant'] as const
 
@@ -215,85 +193,97 @@ function ProjectModal({
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="absolute inset-0 bg-black/85 backdrop-blur-md"
+        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
 
       <motion.div
-        className="relative z-10 w-full max-h-[90vh] sm:max-w-3xl overflow-hidden rounded-t-3xl sm:rounded-3xl border border-red-500/40 bg-[#08080f] shadow-2xl shadow-red-950/80"
+        className="relative z-10 w-full max-h-[90vh] sm:max-w-3xl overflow-hidden rounded-t-2xl sm:rounded-2xl border border-zinc-800 bg-[#12131a] shadow-2xl"
         initial={{ y: '100%', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: '100%', opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 320, damping: 30 }}
       >
         <div className="overflow-y-auto max-h-[90vh] p-6 sm:p-8">
           {/* Header */}
           <div className="flex items-start justify-between gap-4 mb-6">
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600 to-rose-700 text-2xl shadow-lg shadow-red-600/30">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-zinc-700 bg-zinc-800 text-2xl shadow-sm">
                 {project.icon}
               </div>
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-red-500">
+                <span className="text-xs font-semibold uppercase tracking-wider text-red-400">
                   {project.number} — {project.subtitle}
                 </span>
-                <h3 className="text-2xl font-bold text-white mt-1">{project.title}</h3>
+                <h3 className="text-2xl font-bold text-white mt-0.5">{project.title}</h3>
               </div>
             </div>
 
             <button
               onClick={onClose}
-              className="rounded-full bg-gray-900 border border-gray-800 px-3 py-1.5 text-xs font-semibold text-gray-400 hover:bg-red-950 hover:text-white"
+              className="rounded-lg bg-zinc-800 border border-zinc-700 p-2 text-zinc-400 hover:text-white transition-colors"
             >
-              ✕ Esc
+              <X className="h-4 w-4" />
             </button>
           </div>
+
+          {/* Project Image Banner */}
+          {project.image && (
+            <div className="relative mb-6 h-56 sm:h-72 w-full overflow-hidden rounded-xl border border-zinc-800 bg-[#090a0f] p-2">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-contain object-center"
+              />
+            </div>
+          )}
 
           {/* Metrics Row */}
           <div className="grid grid-cols-3 gap-3 mb-6">
             {project.metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-xl border border-red-500/20 bg-[#0e0b14] p-3 text-center"
+                className="rounded-xl border border-zinc-800 bg-[#090a0f] p-3 text-center"
               >
-                <p className="text-base font-extrabold text-red-500">{m.value}</p>
-                <p className="text-[11px] text-gray-400 mt-0.5">{m.label}</p>
+                <p className="text-sm font-bold text-white">{m.value}</p>
+                <p className="text-[11px] text-zinc-400 mt-0.5">{m.label}</p>
               </div>
             ))}
           </div>
 
           {/* Description */}
           <div className="mb-6">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Overview</h4>
-            <p className="text-sm leading-relaxed text-gray-300">{project.fullDescription}</p>
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-2">Overview</h4>
+            <p className="text-sm leading-relaxed text-zinc-300">{project.fullDescription}</p>
           </div>
 
           {/* Challenge & Solution */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-6">
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
-              <div className="flex items-center gap-2 text-red-400 font-bold text-xs uppercase mb-1">
+            <div className="rounded-xl border border-zinc-800 bg-[#090a0f] p-4">
+              <div className="flex items-center gap-2 text-red-400 font-semibold text-xs uppercase mb-1.5">
                 <ShieldAlert className="h-4 w-4" />
                 <span>Engineering Challenge</span>
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">{project.challenge}</p>
+              <p className="text-xs text-zinc-400 leading-relaxed">{project.challenge}</p>
             </div>
 
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase mb-1">
+            <div className="rounded-xl border border-zinc-800 bg-[#090a0f] p-4">
+              <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs uppercase mb-1.5">
                 <Cpu className="h-4 w-4" />
                 <span>Implemented Solution</span>
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">{project.solution}</p>
+              <p className="text-xs text-zinc-400 leading-relaxed">{project.solution}</p>
             </div>
           </div>
 
           {/* Key Features */}
           <div className="mb-6">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Key Features</h4>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-gray-300">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-3">Key Features</h4>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-zinc-300">
               {project.features.map((feat, idx) => (
                 <li key={idx} className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-red-500 flex-shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
                   <span>{feat}</span>
                 </li>
               ))}
@@ -305,7 +295,7 @@ function ProjectModal({
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-red-500/20 bg-red-950/40 px-3 py-1 text-xs text-red-300 font-medium"
+                className="rounded-md border border-zinc-800 bg-[#090a0f] px-3 py-1 text-xs text-zinc-300 font-medium"
               >
                 {tag}
               </span>
@@ -313,13 +303,13 @@ function ProjectModal({
           </div>
 
           {/* Footer Actions */}
-          <div className="flex items-center gap-3 border-t border-gray-800/80 pt-5">
+          <div className="flex items-center gap-3 border-t border-zinc-800 pt-5">
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-red-600/30 hover:shadow-red-600/50 transition-all"
+                className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-red-500 transition-all"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
@@ -330,7 +320,7 @@ function ProjectModal({
             )}
             <button
               onClick={onClose}
-              className="rounded-xl border border-gray-800 bg-[#0d0a10] px-5 py-2.5 text-sm font-semibold text-gray-400 hover:text-white"
+              className="rounded-xl border border-zinc-800 bg-[#090a0f] px-5 py-2.5 text-sm font-semibold text-zinc-400 hover:text-white"
             >
               Close
             </button>
@@ -351,37 +341,37 @@ const Projects: React.FC = () => {
 
   return (
     <>
-      <section id="projects" className="relative w-full bg-[#050508] px-6 py-24 md:py-32">
+      <section id="projects" className="relative w-full bg-[#090a0f] px-6 py-24 md:py-32">
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* Section Header */}
           <motion.div
             className="text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-red-400">
-              <Sparkles className="h-3.5 w-3.5" />
-              <span>Production Apps Showcase</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-[#12131a] px-3.5 py-1 text-xs font-semibold text-zinc-300">
+              <FolderGit2 className="h-3.5 w-3.5 text-red-400" />
+              <span>Production Portfolio</span>
             </div>
-            <h2 className="mt-4 text-4xl font-extrabold text-white sm:text-6xl">
+            <h2 className="mt-4 text-3xl font-extrabold text-white sm:text-5xl">
               Featured Mobile Applications
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-400">
-              Selected apps delivered for Android & iOS using Clean Architecture, Bloc, Riverpod, and cloud backend integrations.
+            <p className="mx-auto mt-3 max-w-2xl text-base text-zinc-400">
+              Selected production apps delivered for Android & iOS using Clean Architecture, Bloc, Riverpod, and cloud backend integrations.
             </p>
 
             {/* Category Filter Tabs */}
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`rounded-xl px-5 py-2.5 text-xs font-bold transition-all ${
+                  className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all ${
                     activeCategory === cat
-                      ? 'bg-gradient-to-r from-red-600 via-rose-600 to-red-700 text-white shadow-lg shadow-red-600/30 border border-red-500/50'
-                      : 'border border-gray-800 bg-[#0a0a10] text-gray-400 hover:border-red-900/50 hover:text-white'
+                      ? 'bg-zinc-800 border border-zinc-700 text-white shadow-sm'
+                      : 'border border-zinc-800 bg-[#12131a] text-zinc-400 hover:text-white'
                   }`}
                 >
                   {cat}
@@ -390,71 +380,132 @@ const Projects: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Cards Grid */}
-          <motion.div
-            layout
-            className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
+          {/* Sticky Stacking Cards Container */}
+          <div className="relative mt-12 space-y-12 pb-24">
             <AnimatePresence>
-              {filteredProjects.map((project) => (
+              {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.92 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.92 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
-                  onClick={() => setSelectedProject(project)}
-                  className="group relative cursor-pointer overflow-hidden rounded-3xl border border-gray-800/80 bg-[#0a0a12]/70 p-7 backdrop-blur-md transition-all duration-500 hover:border-red-500/60 hover:bg-[#0f0b18]/90 hover:shadow-2xl hover:shadow-red-950/60"
+                  viewport={{ once: true }}
+                  style={{
+                    top: `calc(6.5rem + ${index * 1.5}rem)`,
+                    zIndex: index + 10,
+                  }}
+                  className="sticky group cursor-pointer overflow-hidden rounded-2xl border border-zinc-800 bg-[#12131a] p-6 sm:p-8 shadow-2xl transition-all duration-300 hover:border-zinc-700"
                 >
-                  {/* Top Bar: Number & Badge */}
-                  <div className="flex items-center justify-between mb-6">
-                    <span className="text-xs font-extrabold text-gray-500 tracking-widest">
-                      {project.number}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-[10px] font-bold tracking-wider text-red-400 uppercase">
-                      <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                      {project.badgeText}
-                    </span>
-                  </div>
-
-                  {/* Icon & Title */}
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-red-600/30 to-red-900/30 border border-red-500/40 text-2xl shadow-md group-hover:scale-105 transition-transform">
-                      {project.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-xs font-medium text-gray-400 mt-0.5">{project.subtitle}</p>
-                    </div>
-                  </div>
-
-                  {/* Short Description */}
-                  <p className="text-xs leading-relaxed text-gray-400 mb-6 line-clamp-3">
-                    {project.shortDescription}
-                  </p>
-
-                  {/* Metrics Bar */}
-                  <div className="grid grid-cols-3 gap-2 rounded-2xl border border-gray-800/80 bg-[#07070c] p-3 mb-6">
-                    {project.metrics.map((m) => (
-                      <div key={m.label} className="text-center">
-                        <p className="text-xs font-extrabold text-white">{m.value}</p>
-                        <p className="text-[10px] text-gray-500 mt-0.5">{m.label}</p>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    {/* Left Details Column (lg:col-span-6) */}
+                    <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
+                      
+                      {/* Top Bar: Number & Badges */}
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <span className="text-xs font-mono font-bold text-zinc-500">
+                          {project.number}
+                        </span>
+                        <span className="inline-flex items-center gap-1 rounded-md border border-zinc-800 bg-[#090a0f] px-2.5 py-0.5 text-[10px] font-mono font-semibold tracking-wider text-red-400 uppercase">
+                          {project.badgeText}
+                        </span>
+                        <span className="rounded-md border border-zinc-800/80 bg-[#090a0f] px-2.5 py-0.5 text-[10px] font-mono font-medium text-zinc-400">
+                          {project.category}
+                        </span>
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Action Link */}
-                  <div className="flex items-center justify-between text-xs font-bold text-red-500 group-hover:translate-x-1 transition-transform pt-2 border-t border-gray-800/80">
-                    <span>Explore Full Specs</span>
-                    <ArrowUpRight className="h-4 w-4" />
+                      {/* Title & Subtitle */}
+                      <div>
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-2xl">{project.icon}</span>
+                          <h3 className="text-2xl font-bold text-white group-hover:text-red-400 transition-colors sm:text-3xl">
+                            {project.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs font-mono font-medium text-zinc-400 mt-1">
+                          {project.subtitle}
+                        </p>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-xs leading-relaxed text-zinc-300 sm:text-sm">
+                        {project.shortDescription}
+                      </p>
+
+                      {/* Metrics Bar */}
+                      <div className="grid grid-cols-3 gap-2 rounded-xl border border-zinc-800 bg-[#090a0f] p-3">
+                        {project.metrics.map((m) => (
+                          <div key={m.label} className="text-center">
+                            <p className="text-xs font-mono font-bold text-white sm:text-sm">{m.value}</p>
+                            <p className="text-[10px] font-mono text-zinc-400 mt-0.5">{m.label}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tech Stack Pills */}
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-md border border-zinc-800 bg-[#090a0f] px-2.5 py-1 text-xs font-mono text-zinc-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* CTAs */}
+                      <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-zinc-800/80">
+                        <button
+                          onClick={() => setSelectedProject(project)}
+                          className="inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-2.5 text-xs font-semibold text-white shadow-md transition-all hover:bg-red-500"
+                        >
+                          <span>View Full Specifications</span>
+                          <ArrowUpRight className="h-4 w-4" />
+                        </button>
+
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-2 rounded-xl border border-zinc-800 bg-[#090a0f] px-4 py-2.5 text-xs font-semibold text-zinc-300 transition-all hover:border-zinc-700 hover:text-white"
+                          >
+                            <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                            </svg>
+                            <span>Source Code</span>
+                          </a>
+                        )}
+                      </div>
+
+                    </div>
+
+                    {/* Right Visual Image Column (lg:col-span-6) - Full Uncropped Image */}
+                    <div className="lg:col-span-6 flex justify-center">
+                      {project.image && (
+                        <div
+                          onClick={() => setSelectedProject(project)}
+                          className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-xl border border-zinc-800 bg-[#090a0f] p-2 shadow-lg group-hover:border-zinc-700"
+                        >
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-contain object-center group-hover:scale-105 transition-transform duration-500 p-2"
+                          />
+                        </div>
+                      )}
+                    </div>
+
                   </div>
                 </motion.div>
               ))}
             </AnimatePresence>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -472,3 +523,6 @@ const Projects: React.FC = () => {
 }
 
 export default Projects
+
+
+

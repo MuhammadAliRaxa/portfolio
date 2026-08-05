@@ -1,16 +1,19 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { ArrowRight, Mail, Smartphone, Briefcase, GraduationCap } from 'lucide-react'
+import { ArrowRight, Mail, Smartphone } from 'lucide-react'
+
+
+
+
 
 const roles = [
-  'Flutter Engineer',
-  'Cross-Platform Architect',
-  'Multi-Tenant App Engineer',
-  'AI Integration Specialist',
-  'Clean Architecture Expert',
+  'Flutter & Dart Engineer',
+  'Cross-Platform Mobile Architect',
+  'Multi-Tenant App Developer',
+  'Clean Architecture Specialist',
 ]
 
 const Hero: React.FC = () => {
@@ -19,125 +22,92 @@ const Hero: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentRoleIndex((prev) => (prev + 1) % roles.length)
-    }, 2800)
+    }, 3000)
     return () => clearInterval(interval)
   }, [])
 
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 })
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 })
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['12deg', '-12deg'])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-12deg', '12deg'])
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#050508] pt-28 pb-16 md:pt-36 md:pb-24">
-      {/* Red Ambient Background Lighting */}
+    <section className="relative min-h-[90vh] w-full overflow-hidden bg-[#090a0f] pt-32 pb-20 md:pt-40 md:pb-28">
+      {/* Soft Ambient Background Highlight */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/4 left-1/2 h-[550px] w-[550px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr from-red-600/20 via-rose-600/15 to-red-950/20 blur-[140px] animate-pulse-glow" />
-        <div className="absolute top-1/3 right-10 h-[350px] w-[350px] rounded-full bg-red-700/10 blur-[110px]" />
-        <div className="absolute bottom-10 left-10 h-[350px] w-[350px] rounded-full bg-rose-700/10 blur-[110px]" />
+        <div className="absolute top-1/3 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-950/10 blur-[130px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-12">
 
-          {/* Left Column */}
+          {/* Left Column - Intro Text */}
           <motion.div
             className="flex flex-col items-start lg:col-span-7"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6 }}
           >
-            {/* Red Status Pill */}
-            <motion.div
-              className="inline-flex items-center gap-2.5 rounded-full border border-red-500/40 bg-red-500/10 px-4 py-1.5 backdrop-blur-md"
-              whileHover={{ scale: 1.03 }}
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-[#12131a] px-3.5 py-1 text-xs font-mono font-medium text-zinc-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-wider text-red-400">
-                Available for Hire
-              </span>
-            </motion.div>
+              <span>Available for Hire & Contract</span>
+            </div>
 
-            {/* Red & Black Headline */}
-            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            {/* Main Title */}
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
               Hi, I'm <br />
-              <span className="bg-gradient-to-r from-white via-red-200 to-red-600 bg-clip-text text-transparent animate-gradient">
+              <span className="text-white">
                 Muhammad Ali Raza
               </span>
             </h1>
 
-            {/* Rotating Role Subtitle */}
-            <div className="mt-4 flex items-center text-xl font-bold text-gray-300 sm:text-2xl md:text-3xl">
-              <div className="relative h-9 overflow-hidden">
+            {/* Dynamic Role Subtitle */}
+            <div className="mt-3 flex items-center text-lg font-semibold text-zinc-400 sm:text-xl md:text-2xl">
+              <div className="relative h-8 overflow-hidden">
                 <motion.span
                   key={currentRoleIndex}
-                  initial={{ y: 24, opacity: 0 }}
+                  initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -24, opacity: 0 }}
+                  exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="block text-red-500"
+                  className="block text-red-500 font-mono font-bold"
                 >
                   {roles[currentRoleIndex]}
                 </motion.span>
               </div>
             </div>
 
-            {/* Summary */}
-            <p className="mt-6 max-w-2xl text-base text-gray-400 sm:text-lg leading-relaxed">
-              Results-driven Flutter Developer & CS graduate with <span className="text-white font-semibold">2+ years of experience</span> shipping <span className="text-white font-semibold">15+ production apps</span> for Android & iOS across three companies. Expert in <span className="text-red-400">Bloc, Riverpod, Firebase</span>, and Clean Architecture.
+            {/* Brief Professional Summary */}
+            <p className="mt-5 max-w-2xl text-base text-zinc-400 leading-relaxed sm:text-lg">
+              Software Engineer specializing in <span className="text-zinc-200 font-semibold">Flutter & Cross-Platform Development</span>. <span className="text-zinc-200 font-semibold font-mono">2+ years of experience</span> shipping <span className="text-zinc-200 font-semibold font-mono">15+ production mobile applications</span> across three tech companies, focused on Clean Architecture, Bloc/Riverpod state management, and real-time backend integrations.
             </p>
 
-            {/* Action Buttons */}
+            {/* Call to Actions */}
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a
                 href="#projects"
-                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 px-7 py-3.5 text-base font-bold text-white shadow-lg shadow-red-600/30 transition-all hover:shadow-red-600/50"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center gap-2.5 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-red-500"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <span>View Projects</span>
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4" />
               </motion.a>
 
               <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-2.5 rounded-xl border border-gray-800 bg-[#0c0c14] px-6 py-3.5 text-base font-semibold text-gray-200 backdrop-blur-md transition-all hover:border-red-500/50 hover:bg-gray-900/80 hover:text-white"
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center gap-2.5 rounded-xl border border-zinc-800 bg-[#12131a] px-6 py-3 text-sm font-semibold text-zinc-300 transition-all hover:border-zinc-700 hover:text-white"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <Mail className="h-5 w-5 text-red-500" />
-                <span>Get In Touch</span>
+                <Mail className="h-4 w-4 text-red-400" />
+                <span>Contact Me</span>
               </motion.a>
 
               <motion.a
                 href="https://github.com/muhammadaliraxa"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-gray-800 bg-[#0c0c14] text-gray-400 transition-all hover:border-red-500/50 hover:bg-gray-900/80 hover:text-white"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-zinc-800 bg-[#12131a] text-zinc-400 transition-all hover:border-zinc-700 hover:text-white"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 title="GitHub Profile"
@@ -148,12 +118,12 @@ const Hero: React.FC = () => {
               </motion.a>
             </div>
 
-            {/* Quick Tech Highlights */}
-            <div className="mt-10 flex flex-wrap gap-2.5 border-t border-gray-800/80 pt-6">
-              {['Flutter', 'Dart', 'Bloc', 'Riverpod', 'Provider', 'Firebase', 'REST APIs', 'OpenAI GPT'].map((tech) => (
+            {/* Quick Skill Tags */}
+            <div className="mt-8 flex flex-wrap gap-2 border-t border-zinc-800/80 pt-6">
+              {['Flutter', 'Dart', 'Bloc', 'Riverpod', 'Firebase', 'REST APIs', 'Multi-Tenant', 'OpenAI AI'].map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-lg border border-gray-800 bg-[#0c0c14] px-3 py-1 text-xs font-medium text-gray-300 backdrop-blur-sm"
+                  className="rounded-lg border border-zinc-800 bg-[#12131a] px-3 py-1 text-xs font-mono font-medium text-zinc-400"
                 >
                   {tech}
                 </span>
@@ -161,121 +131,70 @@ const Hero: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Red Avatar Stage */}
+          {/* Right Column - Sleek Profile Display */}
           <motion.div
             className="flex justify-center lg:col-span-5"
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6 }}
           >
-            <div
-              className="perspective-1000 relative flex items-center justify-center"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            >
-              {/* Spinning Red Neon Ring */}
-              <div className="absolute h-[340px] w-[340px] sm:h-[400px] sm:w-[400px] rounded-full bg-gradient-to-tr from-red-600 via-rose-600 to-red-900 opacity-80 blur-xl animate-spin-slow" />
+            <div className="relative flex flex-col items-center">
+              {/* Profile Image Frame */}
+              <div className="relative h-[280px] w-[280px] sm:h-[320px] sm:w-[320px] overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 p-2 shadow-2xl">
+                <Image
+                  src="/profile-new.png"
+                  alt="Muhammad Ali Raza"
+                  width={320}
+                  height={320}
+                  className="h-full w-full rounded-xl object-cover object-center"
+                  priority
+                />
+              </div>
 
-              {/* Outer Dashed Red Circle */}
-              <div className="absolute h-[320px] w-[320px] sm:h-[380px] sm:w-[380px] rounded-full border-2 border-dashed border-red-500/40 animate-spin-reverse" />
-
-              {/* 3D Tilt Container */}
-              <motion.div
-                style={{
-                  rotateX,
-                  rotateY,
-                  transformStyle: 'preserve-3d',
-                }}
-                className="relative z-10 flex flex-col items-center"
-              >
-                {/* Profile Image Frame */}
-                <div className="group relative h-[280px] w-[280px] sm:h-[330px] sm:w-[330px] overflow-hidden rounded-full border-4 border-red-500/60 bg-gradient-to-b from-gray-900 to-black p-2 shadow-[0_0_50px_rgba(239,68,68,0.4)] transition-all duration-500 hover:border-red-500 hover:shadow-[0_0_80px_rgba(239,68,68,0.6)]">
-
-                  <div className="absolute inset-0 bg-gradient-to-tr from-red-600/20 via-transparent to-rose-600/20 rounded-full" />
-
-                  <Image
-                    src="/profile-new.png"
-                    alt="Muhammad Ali Raza"
-                    width={330}
-                    height={330}
-                    className="h-full w-full rounded-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                    priority
-                  />
+              {/* Clean Sub-Card */}
+              <div className="mt-4 flex items-center gap-3 rounded-xl border border-zinc-800 bg-[#12131a] px-4 py-2.5 shadow-lg">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-950/60 border border-red-900/40 text-red-400">
+                  <Smartphone className="h-4 w-4" />
                 </div>
-
-                {/* Floating Badge 1: Experience */}
-                <motion.div
-                  className="absolute -top-4 -left-6 sm:-top-6 sm:-left-8 flex items-center gap-2 rounded-2xl border border-red-500/40 bg-[#0d0910]/95 px-4 py-2.5 shadow-xl backdrop-blur-md animate-float"
-                  whileHover={{ scale: 1.08 }}
-                >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500/20 text-red-500">
-                    <Briefcase className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-400">Experience</p>
-                    <p className="text-sm font-bold text-white">2+ Years</p>
-                  </div>
-                </motion.div>
-
-                {/* Floating Badge 2: Specialty */}
-                <motion.div
-                  className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-8 flex items-center gap-2.5 rounded-2xl border border-red-500/40 bg-[#0d0910]/95 px-4 py-2.5 shadow-xl backdrop-blur-md animate-float-delayed"
-                  whileHover={{ scale: 1.08 }}
-                >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500/20 text-red-500">
-                    <Smartphone className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-400">Specialty</p>
-                    <p className="text-sm font-bold text-white">Flutter & Dart</p>
-                  </div>
-                </motion.div>
-
-                {/* Floating Badge 3: Education */}
-                <motion.div
-                  className="absolute top-1/2 -right-8 sm:-right-12 -translate-y-1/2 hidden sm:flex items-center gap-2 rounded-2xl border border-red-500/40 bg-[#0d0910]/95 px-3.5 py-2 shadow-xl backdrop-blur-md"
-                  whileHover={{ scale: 1.08 }}
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-500/20 text-red-500">
-                    <GraduationCap className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-semibold text-gray-400">Education</p>
-                    <p className="text-xs font-bold text-white">BS CS Degree</p>
-                  </div>
-                </motion.div>
-              </motion.div>
+                <div>
+                  <p className="text-xs font-mono font-medium text-zinc-400">Primary Tech Stack</p>
+                  <p className="text-sm font-semibold text-white">Flutter & Cross-Platform iOS/Android</p>
+                </div>
+              </div>
             </div>
           </motion.div>
+
         </div>
 
-        {/* Floating Stats Bar */}
+        {/* Stats Grid */}
         <motion.div
-          className="mt-16 grid grid-cols-2 gap-4 rounded-2xl border border-gray-800/80 bg-[#0a0a10]/60 p-6 backdrop-blur-md sm:grid-cols-4 md:p-8"
-          initial={{ opacity: 0, y: 30 }}
+          className="mt-16 grid grid-cols-2 gap-4 rounded-2xl border border-zinc-800/80 bg-[#12131a]/60 p-6 sm:grid-cols-4 md:p-8"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="flex flex-col items-center text-center">
-            <span className="text-3xl font-extrabold text-red-500 sm:text-4xl">2+</span>
-            <span className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">Years Experience</span>
+            <span className="text-3xl font-mono font-extrabold text-white sm:text-4xl">2+ Years</span>
+            <span className="mt-1 text-xs font-medium text-zinc-400 sm:text-sm">Professional Experience</span>
           </div>
-          <div className="flex flex-col items-center text-center border-l border-gray-800">
-            <span className="text-3xl font-extrabold text-rose-500 sm:text-4xl">3</span>
-            <span className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">Companies Served</span>
+          <div className="flex flex-col items-center text-center border-l border-zinc-800">
+            <span className="text-3xl font-mono font-extrabold text-white sm:text-4xl">15+</span>
+            <span className="mt-1 text-xs font-medium text-zinc-400 sm:text-sm">Production Apps Shipped</span>
           </div>
-          <div className="flex flex-col items-center text-center border-l border-gray-800">
-            <span className="text-3xl font-extrabold text-red-400 sm:text-4xl">15+</span>
-            <span className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">Apps Shipped (Android & iOS)</span>
+          <div className="flex flex-col items-center text-center border-l border-zinc-800">
+            <span className="text-3xl font-mono font-extrabold text-white sm:text-4xl">3</span>
+            <span className="mt-1 text-xs font-medium text-zinc-400 sm:text-sm">Tech Companies</span>
           </div>
-          <div className="flex flex-col items-center text-center border-l border-gray-800">
-            <span className="text-3xl font-extrabold text-rose-400 sm:text-4xl">100%</span>
-            <span className="mt-1 text-xs font-medium text-gray-400 sm:text-sm">Production Ready</span>
+          <div className="flex flex-col items-center text-center border-l border-zinc-800">
+            <span className="text-3xl font-mono font-extrabold text-white sm:text-4xl">3.45</span>
+            <span className="mt-1 text-xs font-medium text-zinc-400 sm:text-sm">BS CS Academic CGPA</span>
           </div>
         </motion.div>
+
       </div>
     </section>
   )
 }
 
 export default Hero
+

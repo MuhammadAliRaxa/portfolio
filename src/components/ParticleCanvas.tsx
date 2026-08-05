@@ -8,7 +8,6 @@ interface Particle {
   vx: number
   vy: number
   radius: number
-  color: string
   alpha: number
 }
 
@@ -26,34 +25,18 @@ const ParticleCanvas: React.FC = () => {
     let width = (canvas.width = window.innerWidth)
     let height = (canvas.height = window.innerHeight)
 
-    const mouse = {
-      x: width / 2,
-      y: height / 2,
-      targetX: width / 2,
-      targetY: height / 2,
-      radius: 180,
-    }
-
-    // Red & Black aesthetic palette
-    const colors = ['#ef4444', '#dc2626', '#b91c1c', '#f87171', '#ffffff']
-    const particleCount = Math.min(Math.floor((width * height) / 12000), 100)
+    const particleCount = Math.min(Math.floor((width * height) / 22000), 40)
     const particles: Particle[] = []
 
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        radius: Math.random() * 2 + 1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        alpha: Math.random() * 0.5 + 0.2,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        radius: Math.random() * 1.5 + 0.8,
+        alpha: Math.random() * 0.2 + 0.1,
       })
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.targetX = e.clientX
-      mouse.targetY = e.clientY
     }
 
     const handleResize = () => {
@@ -62,33 +45,13 @@ const ParticleCanvas: React.FC = () => {
       height = canvas.height = window.innerHeight
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('resize', handleResize)
 
     const render = () => {
-      mouse.x += (mouse.targetX - mouse.x) * 0.05
-      mouse.y += (mouse.targetY - mouse.y) * 0.05
-
       ctx.clearRect(0, 0, width, height)
-
-      // Radial red gradient spotlight following cursor
-      const gradient = ctx.createRadialGradient(
-        mouse.x,
-        mouse.y,
-        0,
-        mouse.x,
-        mouse.y,
-        width * 0.6
-      )
-      gradient.addColorStop(0, 'rgba(239, 68, 68, 0.08)')
-      gradient.addColorStop(0.5, 'rgba(185, 28, 28, 0.03)')
-      gradient.addColorStop(1, 'rgba(5, 5, 8, 0)')
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, width, height)
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
-
         p.x += p.vx
         p.y += p.vy
 
@@ -97,19 +60,9 @@ const ParticleCanvas: React.FC = () => {
         if (p.y < 0) p.y = height
         if (p.y > height) p.y = 0
 
-        const dx = mouse.x - p.x
-        const dy = mouse.y - p.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius
-          p.x -= (dx / dist) * force * 1.5
-          p.y -= (dy / dist) * force * 1.5
-        }
-
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = p.color
+        ctx.fillStyle = '#ffffff'
         ctx.globalAlpha = p.alpha
         ctx.fill()
 
@@ -119,13 +72,13 @@ const ParticleCanvas: React.FC = () => {
           const ldy = p.y - p2.y
           const ldist = Math.sqrt(ldx * ldx + ldy * ldy)
 
-          if (ldist < 120) {
+          if (ldist < 140) {
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = p.color
-            ctx.globalAlpha = (1 - ldist / 120) * 0.15
-            ctx.lineWidth = 0.75
+            ctx.strokeStyle = '#3f3f46'
+            ctx.globalAlpha = (1 - ldist / 140) * 0.08
+            ctx.lineWidth = 0.5
             ctx.stroke()
           }
         }
@@ -138,7 +91,6 @@ const ParticleCanvas: React.FC = () => {
     render()
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('resize', handleResize)
       cancelAnimationFrame(animationFrameId)
     }
@@ -147,9 +99,10 @@ const ParticleCanvas: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-80"
+      className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-60"
     />
   )
 }
 
 export default ParticleCanvas
+
