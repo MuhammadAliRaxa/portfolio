@@ -84,7 +84,7 @@ const Experience: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-[#12131a] px-3.5 py-1 text-xs font-semibold text-zinc-300">
-            <Briefcase className="h-3.5 w-3.5 text-red-400" />
+            <Briefcase className="h-3.5 w-3.5 text-zinc-400" />
             <span>Career Journey</span>
           </div>
           <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
@@ -113,7 +113,7 @@ const Experience: React.FC = () => {
               <div className="absolute left-4 top-6 hidden h-2.5 w-2.5 -translate-x-1/2 rounded-full border-2 border-red-500 bg-[#090a0f] md:block" />
 
               {/* Experience Card */}
-              <div className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-[#12131a] p-5 transition-all duration-300 hover:border-zinc-700 md:p-6">
+              <div className="group relative overflow-hidden rounded-xl border border-zinc-800 bg-[#12131a] p-5 transition-all duration-300 hover:border-red-900/40 hover:shadow-lg hover:shadow-red-950/20 md:p-6">
                 
                 {/* Top Info Header */}
                 <div className="flex flex-col justify-between gap-2.5 md:flex-row md:items-center">
@@ -123,10 +123,10 @@ const Experience: React.FC = () => {
                         <Building2 className="h-4 w-4" />
                       </div>
                       <div>
-                        <h3 className="text-lg font-bold text-white group-hover:text-red-400 transition-colors">
+                        <h3 className="text-lg font-bold text-white group-hover:text-zinc-100 transition-colors">
                           {job.title}
                         </h3>
-                        <p className="text-xs font-semibold text-red-400">{job.company}</p>
+                        <p className="text-xs font-semibold text-zinc-300">{job.company}</p>
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ const Experience: React.FC = () => {
                 <div className="mt-3 space-y-1.5">
                   {job.achievements.map((ach, idx) => (
                     <div key={idx} className="flex items-start gap-2 text-xs leading-relaxed text-zinc-400">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-red-400 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-zinc-400 flex-shrink-0 mt-0.5" />
                       <span>{ach}</span>
                     </div>
                   ))}

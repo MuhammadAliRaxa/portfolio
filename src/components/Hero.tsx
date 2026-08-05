@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
     <section className="relative min-h-[90vh] w-full overflow-hidden bg-[#090a0f] pt-32 pb-20 md:pt-40 md:pb-28">
       {/* Soft Ambient Background Highlight */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/3 left-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-950/10 blur-[130px]" />
+        <div className="absolute top-1/3 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/15 blur-[150px]" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
                   transition={{ duration: 0.4 }}
-                  className="block text-red-500 font-mono font-bold"
+                  className="block text-white font-mono font-bold"
                 >
                   {roles[currentRoleIndex]}
                 </motion.span>
@@ -85,7 +85,7 @@ const Hero: React.FC = () => {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a
                 href="#projects"
-                className="inline-flex items-center gap-2.5 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-red-500"
+                className="inline-flex items-center gap-2.5 rounded-xl bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-red-600/20 transition-all hover:bg-red-500"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Mail className="h-4 w-4 text-red-400" />
+                <Mail className="h-4 w-4 text-zinc-400" />
                 <span>Contact Me</span>
               </motion.a>
 
