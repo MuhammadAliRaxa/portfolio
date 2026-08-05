@@ -107,7 +107,7 @@ const Header: React.FC = () => {
 
                 {activeSection === link.id && (
                   <motion.div
-                    className="absolute inset-0 -z-10 rounded-full bg-zinc-800 border border-zinc-700"
+                    className="absolute inset-0 -z-10 rounded-full bg-red-500/10 border border-red-500/30"
                     layoutId="activeNavTab"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />

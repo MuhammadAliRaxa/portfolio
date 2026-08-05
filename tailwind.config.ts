@@ -9,6 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        red: {
+          50: '#fef2f2',
+          100: '#ffe1e1',
+          200: '#ffc8c8',
+          300: '#ffa2a2',
+          400: '#ff6b6b',
+          500: '#ef4444',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+          950: '#450a0a',
+        },
         dark: {
           50: '#f9fafb',
           100: '#f3f4f6',

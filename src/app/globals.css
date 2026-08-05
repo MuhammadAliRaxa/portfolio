@@ -39,6 +39,11 @@ p {
   letter-spacing: -0.01em;
 }
 
+/* Red Text Selection Color */
+::selection {
+  background: rgba(220, 38, 38, 0.35);
+  color: #ffffff;
+}
 
 /* Elegant Scrollbar */
 ::-webkit-scrollbar {
@@ -55,15 +60,15 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #dc2626;
 }
 
-/* Subtle Glassmorphism Utilities */
+/* Red Accent Glassmorphism Utilities */
 .glass-panel {
-  background: rgba(18, 19, 26, 0.75);
+  background: rgba(18, 19, 26, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover {
@@ -71,8 +76,28 @@ p {
 }
 
 .glass-panel-hover:hover {
-  background: rgba(24, 25, 34, 0.9);
-  border-color: rgba(239, 68, 68, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  background: rgba(24, 25, 34, 0.95);
+  border-color: rgba(220, 38, 38, 0.35);
+  box-shadow: 0 10px 35px -10px rgba(220, 38, 38, 0.2);
 }
+
+/* Subtle Light Ambient Red Background Glow */
+.red-ambient-bg {
+  position: relative;
+}
+
+.red-ambient-bg::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, rgba(9, 10, 15, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+
 
