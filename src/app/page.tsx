@@ -3,10 +3,10 @@
 import Header from '@/components/Header'
 import ParticleCanvas from '@/components/ParticleCanvas'
 import Hero from '@/components/Hero'
+import Process from '@/components/Process'
 import Projects from '@/components/Projects'
 import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
-import Education from '@/components/Education'
 import Contact from '@/components/Contact'
 
 export default function Home() {
@@ -21,6 +21,9 @@ export default function Home() {
       {/* Hero Section with 3D Profile Avatar */}
       <Hero />
 
+      {/* My Design Process */}
+      <Process />
+
       {/* Featured Projects & Filter Tabs */}
       <Projects />
 
@@ -30,11 +33,9 @@ export default function Home() {
       {/* Skills & Technical Mastery */}
       <Skills />
 
-      {/* Academic Education Qualification */}
-      <Education />
-
       {/* Contact Terminal */}
       <Contact />
     </main>
   )
 }
+

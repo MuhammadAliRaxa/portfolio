@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, MessageSquare, Copy, Check } from 'lucide-react'
+import { Mail, Send, ArrowUpRight, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
 
 interface FormData {
   name: string
@@ -10,282 +10,294 @@ interface FormData {
   message: string
 }
 
-interface FormStatus {
-  type: 'idle' | 'loading' | 'success' | 'error'
-  message: string
-}
+type Status = 'idle' | 'loading' | 'success' | 'error'
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: '',
-  })
-  const [status, setStatus] = useState<FormStatus>({ type: 'idle', message: '' })
-  const [copiedEmail, setCopiedEmail] = useState(false)
+  const [formData, setFormData] = useState<FormData>({ name: '', email: '', message: '' })
+  const [status, setStatus] = useState<Status>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
+  const [copied, setCopied] = useState(false)
 
-  const handleCopyEmail = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    navigator.clipboard.writeText('muhammadaliraza97427@gmail.com')
-    setCopiedEmail(true)
-    setTimeout(() => setCopiedEmail(false), 2000)
+  const recipientEmail = 'muhammadaliraza97427@gmail.com'
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(recipientEmail)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setStatus({ type: 'loading', message: 'Sending message...' })
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus({
-        type: 'error',
-        message: 'Please fill in all required fields.',
-      })
+      setStatus('error')
+      setStatusMessage('Please fill in all fields before sending.')
+      setTimeout(() => setStatus('idle'), 4000)
       return
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(formData.email)) {
-      setStatus({
-        type: 'error',
-        message: 'Please enter a valid email address.',
-      })
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+
+    // If no Web3Forms access key is configured, fallback to opening mailto client directly
+    if (!accessKey) {
+      const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(
+        `Portfolio Inquiry from ${formData.name}`
+      )}&body=${encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )}`
+      window.location.href = mailtoUrl
+      setStatus('success')
+      setStatusMessage('Opening your email app to send the message...')
+      setFormData({ name: '', email: '', message: '' })
+      setTimeout(() => setStatus('idle'), 5000)
       return
     }
+
+    setStatus('loading')
+    setStatusMessage('')
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      setStatus({
-        type: 'success',
-        message: "Message sent! I'll reply within 24 hours.",
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          subject: `New Portfolio Message from ${formData.name.trim()}`,
+          from_name: formData.name.trim(),
+        }),
       })
 
-      setFormData({ name: '', email: '', message: '' })
+      const data = await response.json()
 
-      setTimeout(() => {
-        setStatus({ type: 'idle', message: '' })
-      }, 4000)
-    } catch (error) {
-      setStatus({
-        type: 'error',
-        message: 'Failed to send message. Please try again.',
-      })
+      if (response.ok && data.success) {
+        setStatus('success')
+        setStatusMessage("Message sent successfully! I'll reply within 24 hours.")
+        setFormData({ name: '', email: '', message: '' })
+        setTimeout(() => setStatus('idle'), 6000)
+      } else {
+        throw new Error(data.message || 'Failed to send message')
+      }
+    } catch (err: any) {
+      console.error('Contact Form Error:', err)
+      setStatus('error')
+      setStatusMessage(
+        err?.message || 'Could not send message. Please email directly or try again.'
+      )
+      setTimeout(() => setStatus('idle'), 6000)
     }
   }
 
   return (
-    <section id="contact" className="relative w-full bg-[#090a0f] px-6 py-16 md:py-24">
-      <div className="relative z-10 mx-auto max-w-5xl">
-        {/* Section Header */}
+    <section id="contact" className="relative w-full bg-[#050811] py-20 md:py-28 overflow-hidden">
+      {/* Subtle cyan glow */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-cyan-500/8 blur-[180px]" />
+
+      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6">
+
+        {/* Header — big, bold, centered */}
         <motion.div
-          className="text-center"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-[#12131a] px-3.5 py-1 text-xs font-semibold text-zinc-300">
-            <MessageSquare className="h-3.5 w-3.5 text-zinc-400" />
-            <span>Direct Channel</span>
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-950/30 px-3.5 py-1 text-[10px] font-semibold text-cyan-300 uppercase tracking-wider mb-4">
+            <Mail className="h-3 w-3 text-[#48e5c2]" />
+            <span>Contact</span>
           </div>
-          <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
-            Let's Build Something Exceptional
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Let&apos;s work together
           </h2>
-          <p className="mx-auto mt-2 max-w-xl text-sm text-zinc-400">
-            Have a mobile project or looking for an expert Flutter engineer? Reach out directly.
+          <p className="mt-3 text-sm text-zinc-400 max-w-md mx-auto">
+            Have a mobile project in mind? Reach out and let&apos;s build something great.
           </p>
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-12 items-start">
-          {/* Left Column: Direct Communication Hub */}
-          <div className="space-y-3.5 md:col-span-5">
-            
-            {/* Status Availability Card */}
-            <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-xs font-mono text-emerald-400 flex items-center gap-2.5">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-              </span>
-              <span>Available for Full-time & Remote contracts</span>
-            </div>
-
-            {/* Email Card with Copy Action */}
-            <div className="group relative flex items-center justify-between rounded-xl border border-zinc-800 bg-[#12131a] p-4 transition-all duration-300 hover:border-red-900/40 hover:shadow-lg hover:shadow-red-950/20">
-              <a
-                href="mailto:muhammadaliraza97427@gmail.com"
-                className="flex items-center gap-3 overflow-hidden flex-grow"
-              >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-zinc-200 flex-shrink-0">
-                  <Mail className="h-4 w-4" />
-                </div>
-                <div className="overflow-hidden">
-                  <p className="text-[10px] font-mono text-zinc-400 uppercase">Email Address</p>
-                  <p className="truncate text-xs font-bold text-white group-hover:text-zinc-100 transition-colors">
-                    muhammadaliraza97427@gmail.com
-                  </p>
-                </div>
-              </a>
-              <button
-                onClick={handleCopyEmail}
-                title="Copy Email"
-                className="ml-2 flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-800 bg-[#090a0f] text-zinc-400 hover:text-white transition-colors flex-shrink-0"
-              >
-                {copiedEmail ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-              </button>
-            </div>
-
-            {/* Phone / WhatsApp Card */}
-            <a
-              href="tel:+923036197427"
-              className="group flex items-center gap-3 rounded-xl border border-zinc-800 bg-[#12131a] p-4 transition-all duration-300 hover:border-red-900/40 hover:shadow-lg hover:shadow-red-950/20"
-            >
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-zinc-200 flex-shrink-0">
-                <Phone className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-[10px] font-mono text-zinc-400 uppercase">Call / WhatsApp</p>
-                <p className="text-xs font-bold text-white group-hover:text-zinc-100 transition-colors">
-                  +92 303 619 7427
-                </p>
-              </div>
-            </a>
-
-            {/* Location Card */}
-            <div className="flex items-center gap-3 rounded-xl border border-zinc-800 bg-[#12131a] p-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-zinc-200 flex-shrink-0">
-                <MapPin className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-[10px] font-mono text-zinc-400 uppercase">Location & Timezone</p>
-                <p className="text-xs font-bold text-white">
-                  Lahore, PK <span className="font-mono text-[10px] text-zinc-400 font-normal">(PKT / UTC+5)</span>
-                </p>
-              </div>
-            </div>
-
-            {/* GitHub Profile Card */}
-            <a
-              href="https://github.com/muhammadaliraxa"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-3 rounded-xl border border-zinc-800 bg-[#12131a] p-4 transition-all duration-300 hover:border-zinc-700"
-            >
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-700 bg-zinc-800 text-zinc-200 flex-shrink-0">
-                <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[10px] font-mono text-zinc-400 uppercase">GitHub Profile</p>
-                <p className="text-xs font-bold text-white group-hover:text-red-400 transition-colors font-mono">
-                  github.com/muhammadaliraxa
-                </p>
-              </div>
-            </a>
-          </div>
-
-          {/* Right Column: Sleek Compact Message Terminal */}
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-3.5 rounded-2xl border border-zinc-800 bg-[#12131a] p-5 sm:p-6 md:col-span-7 shadow-xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+        {/* Quick contact links — horizontal row */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10"
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          viewport={{ once: true }}
+        >
+          {/* Email */}
+          <button
+            type="button"
+            onClick={handleCopy}
+            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 text-left transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
           >
-            <div className="flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-1">
-              <h3 className="text-sm font-bold text-white">Send Direct Message</h3>
-              <span className="text-[10px] font-mono text-zinc-400">Response &lt; 24h</span>
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
+              <Mail className="h-4 w-4" />
             </div>
+            <div className="min-w-0">
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Email</p>
+              <p className="text-xs font-semibold text-zinc-300 truncate group-hover:text-white transition-colors">
+                {copied ? 'Copied!' : recipientEmail}
+              </p>
+            </div>
+          </button>
 
+          {/* Phone */}
+          <a
+            href="tel:+923036197427"
+            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Phone</p>
+              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">+92 303 619 7427</p>
+            </div>
+          </a>
+
+          {/* GitHub */}
+          <a
+            href="https://github.com/muhammadaliraxa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">GitHub</p>
+              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">muhammadaliraxa</p>
+            </div>
+            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-cyan-400 transition-colors flex-shrink-0" />
+          </a>
+        </motion.div>
+
+        {/* Message Form */}
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="name" className="block text-xs font-mono text-zinc-300 mb-1">
-                Your Name
+              <label htmlFor="contact-name" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
+                Name
               </label>
               <input
                 type="text"
-                id="name"
+                id="contact-name"
                 name="name"
+                required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Muhammad Ali Raza"
-                className="w-full rounded-xl border border-zinc-800 bg-[#090a0f] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition-all focus:border-zinc-700 focus:outline-none"
+                placeholder="Your name"
+                className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none"
               />
             </div>
-
             <div>
-              <label htmlFor="email" className="block text-xs font-mono text-zinc-300 mb-1">
-                Your Email
+              <label htmlFor="contact-email" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
+                Email
               </label>
               <input
                 type="email"
-                id="email"
+                id="contact-email"
                 name="email"
+                required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="you@domain.com"
-                className="w-full rounded-xl border border-zinc-800 bg-[#090a0f] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition-all focus:border-zinc-700 focus:outline-none"
+                placeholder="you@example.com"
+                className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none"
               />
             </div>
+          </div>
 
-            <div>
-              <label htmlFor="message" className="block text-xs font-mono text-zinc-300 mb-1">
-                Project Details
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tell me about your mobile application requirements..."
-                rows={4}
-                className="w-full rounded-xl border border-zinc-800 bg-[#090a0f] px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 transition-all focus:border-zinc-700 focus:outline-none resize-none"
-              />
-            </div>
+          <div>
+            <label htmlFor="contact-message" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
+              Message
+            </label>
+            <textarea
+              id="contact-message"
+              name="message"
+              required
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Tell me about your project..."
+              rows={4}
+              className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none resize-none"
+            />
+          </div>
 
-            {status.type !== 'idle' && (
-              <div
-                className={`flex items-center gap-2 rounded-xl p-3 text-xs font-medium ${
-                  status.type === 'success'
-                    ? 'border border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
-                    : 'border border-red-500/30 bg-red-500/10 text-red-400'
-                }`}
-              >
-                {status.type === 'success' ? (
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400 flex-shrink-0" />
-                ) : (
-                  <AlertCircle className="h-4 w-4 text-red-400 flex-shrink-0" />
-                )}
-                <span>{status.message}</span>
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={status.type === 'loading'}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-red-600 py-3 text-xs font-semibold text-white shadow-md transition-all hover:bg-red-500 disabled:opacity-50"
+          {/* Status feedback */}
+          {status === 'success' && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2 text-xs text-emerald-400 font-medium bg-emerald-950/20 border border-emerald-800/30 p-3 rounded-lg"
             >
-              <Send className="h-3.5 w-3.5" />
-              <span>{status.type === 'loading' ? 'Sending Message...' : 'Send Message'}</span>
-            </button>
-          </motion.form>
+              <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
+              <span>{statusMessage}</span>
+            </motion.div>
+          )}
+          {status === 'error' && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2 text-xs text-red-400 font-medium bg-red-950/20 border border-red-800/30 p-3 rounded-lg"
+            >
+              <AlertCircle className="h-4 w-4 flex-shrink-0" />
+              <span>{statusMessage}</span>
+            </motion.div>
+          )}
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={status === 'loading'}
+            className="group inline-flex items-center gap-2 rounded-full bg-[#48e5c2] px-6 py-3 text-sm font-bold text-[#050811] transition-all hover:bg-[#3dd1b0] hover:shadow-lg hover:shadow-cyan-400/25 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          >
+            {status === 'loading' ? (
+              <>
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                <span>Sending...</span>
+              </>
+            ) : (
+              <>
+                <Send className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                <span>Send Message</span>
+              </>
+            )}
+          </button>
+        </motion.form>
+
+        {/* Footer */}
+        <div className="mt-16 pt-8 border-t border-cyan-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
+          <span>© 2026 Muhammad Ali Raza. All rights reserved.</span>
+          <div className="flex items-center gap-4">
+            <a href="https://github.com/muhammadaliraxa" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">GitHub</a>
+            <a href="https://linkedin.com/in/muhammadaliraxa" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">LinkedIn</a>
+            <a href={`mailto:${recipientEmail}`} className="hover:text-cyan-300 transition-colors">Email</a>
+          </div>
         </div>
+
       </div>
     </section>
   )
 }
 
 export default Contact
-
-

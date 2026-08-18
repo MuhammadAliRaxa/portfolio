@@ -62,8 +62,8 @@ const ParticleCanvas: React.FC = () => {
 
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = '#ffffff'
-        ctx.globalAlpha = p.alpha
+        ctx.fillStyle = '#48e5c2'
+        ctx.globalAlpha = p.alpha * 0.75
         ctx.fill()
 
         for (let j = i + 1; j < particles.length; j++) {
@@ -76,9 +76,9 @@ const ParticleCanvas: React.FC = () => {
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = '#3f3f46'
-            ctx.globalAlpha = (1 - ldist / 140) * 0.08
-            ctx.lineWidth = 0.5
+            ctx.strokeStyle = '#0ea5e9'
+            ctx.globalAlpha = (1 - ldist / 140) * 0.12
+            ctx.lineWidth = 0.6
             ctx.stroke()
           }
         }
