@@ -90,23 +90,23 @@ const projects: Project[] = [
     subtitle: 'AI Photo Transformation & Canvas Book Engine',
     category: 'AI & ML',
     badgeText: 'Recent Project',
-    image: '/snap2sketch.jpg',
+    image: '/snap2sketch.png',
     shortDescription:
       'A creative mobile app where users capture or upload photos and transform them into cartoon-style or pencil-sketch artwork via a custom backend AI API. Features an interactive Canvas Book module allowing users to arrange transformed images into customizable pages and place print orders.',
     fullDescription:
-      'Engineered a creative mobile app where users capture or upload photos and transform them into cartoon-style or pencil-sketch artwork via a custom backend AI API integration. Built an interactive Canvas Book module allowing users to arrange transformed images as book pages, customise layouts, and place print orders — delivering a complete end-to-end creative product.',
+      'Engineered Snap2Sketch, a creative mobile application enabling users to transform personal photos into artistic styles (Linework, Cartoon, Manga, and Anime) via custom AI model integration. Built with a guided multi-step transformation pipeline (photo review, style selection, variant tuning, and instant export), an interactive Canvas & Paint Book editor for custom album page layouts, user cloud storage quota tracking, and on-demand physical print ordering.',
     challenge:
-      'Implementing secure API communication, optimizing heavy asynchronous image processing pipelines, and maintaining an intuitive drag-and-drop canvas interface at 60fps.',
+      'Optimizing multi-step asynchronous image processing pipelines across heavy AI model endpoints while maintaining a fluid 60fps drag-and-drop canvas layout editor on mobile devices.',
     solution:
-      'Implemented secure API communication layers, optimized Dart isolate background processing, and built a custom drag-and-drop canvas UI engine in Flutter.',
-    tags: ['Flutter', 'Dart', 'AI API', 'Firebase', 'Canvas Engine', 'REST API'],
+      'Implemented an asynchronous processing queue with Dart isolates for image operations, optimized state synchronization using Riverpod/Bloc, and built a custom gesture-driven canvas rendering engine with multi-layer editing.',
+    tags: ['Flutter', 'Dart', 'AI API', 'Canvas Engine', 'Cloud Storage', 'REST API'],
     features: [
-      'Photo capture & upload with AI art transformation',
-      'Cartoon-style & pencil-sketch artwork generation',
-      'Interactive Canvas Book module for page arrangement',
-      'Custom layout editing & print order placement',
-      'Intuitive drag-and-drop canvas interface',
-      'Optimized image processing pipeline & secure API layers',
+      'Guided multi-step AI transformation pipeline (Upload, Style, Variant, Export)',
+      'Diverse artistic styles: Linework, Cartoon, Manga Style & Anime Layouts',
+      'Interactive Canvas & Paint Book editor with layer controls & drawing tools',
+      'Physical print ordering workflow & high-resolution artwork downloads',
+      'Cloud storage tier tracking & in-app plan upgrade integration',
+      'Optimized 60fps image rendering pipeline with Dart isolates',
     ],
     metrics: [
       { label: 'AI Engine', value: 'Custom API' },
