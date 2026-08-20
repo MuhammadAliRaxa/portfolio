@@ -86,6 +86,38 @@ const projects: Project[] = [
   {
     id: 2,
     number: '02',
+    title: 'Trust Docs',
+    subtitle: 'Secure Document Cloud & Admin Verification System',
+    category: 'Cloud & Security',
+    badgeText: 'Recent Project',
+    image: '/trustdocs.png',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.azhar.trustdocuments&hl=en',
+    shortDescription:
+      'Encrypted cloud document vault with multi-format file upload (PDF, JPG, PNG), real-time status tracking, and admin approval verification workflows on mobile.',
+    fullDescription:
+      'Built Trust Docs, a cross-platform mobile cloud document vault engineered with Flutter and Firebase. Users securely upload documents of any file format (PDF, images, archives) into encrypted cloud storage. Features an integrated admin verification workflow where administrators review, approve, or flag uploaded documents, enabling users to track document approval status in real-time and download verified files whenever needed on mobile.',
+    challenge:
+      'Handling multi-format file binary streaming, secure Cloud Storage access rules, and real-time status updates between user client and admin verification dashboards.',
+    solution:
+      'Architected Cloud Firestore security rules with Firebase Storage access tokens, Bloc state management, and real-time stream listeners for instant approval status reflection.',
+    tags: ['Flutter', 'Dart', 'Firebase Storage', 'Cloud Firestore', 'Bloc', 'Document Vault'],
+    features: [
+      'Multi-format file upload (PDF, JPG, PNG, DOCX) to encrypted cloud',
+      'Real-time document verification status dashboard (Pending, Approved)',
+      'Admin verification panel for document review & approval workflows',
+      'Secure document download & offline caching capabilities',
+      'User profile & account authentication with Firebase Auth',
+      'Role-based access control (User vs. Admin approval rights)',
+    ],
+    metrics: [
+      { label: 'Storage', value: 'Cloud Vault' },
+      { label: 'Approval', value: 'Admin Panel' },
+      { label: 'Formats', value: 'All Files' },
+    ],
+  },
+  {
+    id: 3,
+    number: '03',
     title: 'Snap2Sketch',
     subtitle: 'AI Photo Transformation & Canvas Book Engine',
     category: 'AI & ML',
@@ -115,13 +147,13 @@ const projects: Project[] = [
     ],
   },
   {
-    id: 3,
-    number: '03',
+    id: 4,
+    number: '04',
     title: 'E-Commerce Mobile App',
     subtitle: 'Real-Time Sync & AI Customer Support Chatbot',
     category: 'E-Commerce',
     badgeText: 'Recent Project',
-    image: '/ecommerce.jpg',
+    image: '/ecommerce.png',
     githubUrl: 'https://github.com/MuhammadAliRaxa/E-Commerce',
     shortDescription:
       'Full-featured cross-platform e-commerce app with real-time Firestore data sync, dynamic cart management, and an intelligent AI support chatbot for automated customer inquiries and product discovery.',
@@ -147,8 +179,8 @@ const projects: Project[] = [
     ],
   },
   {
-    id: 4,
-    number: '04',
+    id: 5,
+    number: '05',
     title: 'MR Trading',
     subtitle: 'Product-Scanning Sales & Admin Incentive Payouts',
     category: 'Multi-Tenant',
@@ -174,38 +206,6 @@ const projects: Project[] = [
       { label: 'Scanner', value: 'QR Code' },
       { label: 'Payouts', value: 'Admin Panel' },
       { label: 'Reports', value: 'Real-Time' },
-    ],
-  },
-  {
-    id: 5,
-    number: '05',
-    title: 'Trust Docs',
-    subtitle: 'Secure Document Cloud & Admin Verification System',
-    category: 'Cloud & Security',
-    badgeText: 'Recent Project',
-    image: '/trustdocs.jpg',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.azhar.trustdocuments&hl=en',
-    shortDescription:
-      'Encrypted cloud document vault with multi-format file upload (PDF, JPG, PNG), real-time status tracking, and admin approval verification workflows on mobile.',
-    fullDescription:
-      'Built Trust Docs, a cross-platform mobile cloud document vault engineered with Flutter and Firebase. Users securely upload documents of any file format (PDF, images, archives) into encrypted cloud storage. Features an integrated admin verification workflow where administrators review, approve, or flag uploaded documents, enabling users to track document approval status in real-time and download verified files whenever needed on mobile.',
-    challenge:
-      'Handling multi-format file binary streaming, secure Cloud Storage access rules, and real-time status updates between user client and admin verification dashboards.',
-    solution:
-      'Architected Cloud Firestore security rules with Firebase Storage access tokens, Bloc state management, and real-time stream listeners for instant approval status reflection.',
-    tags: ['Flutter', 'Dart', 'Firebase Storage', 'Cloud Firestore', 'Bloc', 'Document Vault'],
-    features: [
-      'Multi-format file upload (PDF, JPG, PNG, DOCX) to encrypted cloud',
-      'Real-time document verification status dashboard (Pending, Approved)',
-      'Admin verification panel for document review & approval workflows',
-      'Secure document download & offline caching capabilities',
-      'User profile & account authentication with Firebase Auth',
-      'Role-based access control (User vs. Admin approval rights)',
-    ],
-    metrics: [
-      { label: 'Storage', value: 'Cloud Vault' },
-      { label: 'Approval', value: 'Admin Panel' },
-      { label: 'Formats', value: 'All Files' },
     ],
   },
 ]

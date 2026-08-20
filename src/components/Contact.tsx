@@ -290,7 +290,7 @@ const Contact: React.FC = () => {
           <span>© 2026 Muhammad Ali Raza. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a href="https://github.com/muhammadaliraxa" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/muhammadaliraxa" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/ali-raza-9b1257397/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">LinkedIn</a>
             <a href={`mailto:${recipientEmail}`} className="hover:text-cyan-300 transition-colors">Email</a>
           </div>
         </div>
