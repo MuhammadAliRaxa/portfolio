@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Award, ShieldCheck, CheckCircle2 } from 'lucide-react'
+import { Award, ShieldCheck } from 'lucide-react'
 
 const Education: React.FC = () => {
   return (

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowDown, Mail, Layers, ShieldCheck, Sparkles, Smartphone, Cpu } from 'lucide-react'
+import { ArrowDown, Mail, ShieldCheck, Sparkles, Smartphone } from 'lucide-react'
 
 const capabilities = [
   'Enterprise Mobile Engineering',
@@ -75,7 +75,7 @@ const Hero: React.FC = () => {
 
           {/* Central Glass Emblem */}
           <div className="relative flex h-28 w-28 sm:h-36 sm:w-36 items-center justify-center rounded-3xl border border-cyan-400/30 bg-[#0b101b]/90 backdrop-blur-2xl shadow-2xl shadow-cyan-950/80 group">
-            {/* Ambient rotating rings */}
+            {/* Ambient rotating ring */}
             <div className="absolute inset-2 rounded-2xl border border-dashed border-cyan-500/20 animate-spin" style={{ animationDuration: '24s' }} />
             
             {/* Tech Glyph Icon */}
