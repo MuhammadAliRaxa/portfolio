@@ -33,15 +33,15 @@ const Overlay: React.FC = () => {
           style={{ opacity: opacity1, y: y1 }}
         >
           <motion.p className="mb-2 text-sm md:text-base font-semibold tracking-widest text-cyan-400 uppercase">
-            Flutter Developer | Mobile App Developer
+            Mobile Engineering & Architecture Studio
           </motion.p>
           <motion.h1 className="text-5xl md:text-8xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-              Muhammad Ali Raza
+            <span className="bg-gradient-to-r from-white via-gray-200 to-cyan-400 bg-clip-text text-transparent">
+              Apex Mobile Labs
             </span>
           </motion.h1>
           <motion.p className="mt-6 text-lg md:text-xl text-gray-300 font-light max-w-3xl leading-relaxed">
-            Results-driven Flutter Developer & CS graduate with 2+ years of experience delivering cross-platform Android and iOS applications using Clean Architecture (Bloc, Riverpod) and Firebase.
+            Engineering high-performance, cross-platform Android and iOS applications using Clean Architecture, Flutter SDK, and scalable cloud backends.
           </motion.p>
         </motion.div>
 

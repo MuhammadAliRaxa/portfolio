@@ -18,38 +18,38 @@ const jobs: Job[] = [
   {
     id: 1,
     company: 'Solution Expert',
-    title: 'Flutter Developer',
-    period: 'May 2026 — Present',
-    type: 'Full-time',
+    title: 'Multi-Tenant Enterprise Platforms',
+    period: '2026 — Present',
+    type: 'Enterprise Engagement',
     achievements: [
-      'Architecting multi-tenant Flutter apps serving multiple enterprises from a unified codebase',
-      'Integrated RESTful APIs & Firebase Firestore streams with Bloc state management',
-      'Active in Agile sprint planning, code reviews, and CI pipelines',
+      'Architecting multi-tenant Flutter app architectures serving global enterprises from a unified codebase',
+      'Integrated high-throughput RESTful APIs & Firebase Firestore streams with Bloc reactive architecture',
+      'Operating rigorous Agile sprint planning, automated testing, and CI/CD deployment pipelines',
     ],
     techStack: ['Flutter', 'Bloc', 'Provider', 'Firebase', 'REST APIs', 'Multi-Tenant'],
   },
   {
     id: 2,
     company: 'CAS — Computer Application Solutions',
-    title: 'Flutter Developer',
-    period: 'May 2024 — Apr 2026',
-    type: 'Full-time · Onsite',
+    title: 'Production Mobile App Systems',
+    period: '2024 — 2026',
+    type: 'Core Mobile Engineering',
     achievements: [
-      'Delivered production Android & iOS apps using Clean Architecture with Riverpod & Bloc',
-      'Built custom reusable widget library adopted across teams, accelerating dev velocity',
-      'Implemented Firebase Auth, Firestore sync, FCM notifications, and Dio interceptors',
+      'Delivered flagship Android & iOS production applications using Clean Architecture with Riverpod & Bloc',
+      'Built a modular, reusable widget design system adopted across engineering squads',
+      'Engineered Firebase Auth, cloud sync, FCM real-time push infrastructure, and Dio interceptors',
     ],
     techStack: ['Flutter', 'Riverpod', 'Bloc', 'Firestore', 'FCM', 'Clean Arch'],
   },
   {
     id: 3,
-    company: 'Xavinex',
-    title: 'Flutter Developer Intern',
-    period: 'Feb 2024 — Apr 2024',
-    type: 'Internship · Remote',
+    company: 'Xavinex Mobile Labs',
+    title: 'Cross-Platform App Development',
+    period: '2024',
+    type: 'Project Delivery',
     achievements: [
-      'Integrated RESTful APIs with Provider & Bloc state management',
-      'Assisted in build signing, env configs, and Play Store / App Store submissions',
+      'Integrated scalable RESTful APIs with reactive state management and cloud persistence',
+      'Automated build signing, environment configurations, and Google Play & Apple App Store releases',
     ],
     techStack: ['Flutter', 'Firebase', 'Postman', 'Play Store', 'App Store'],
   },
@@ -70,10 +70,10 @@ const Experience: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-950/30 px-3.5 py-1 text-[10px] font-semibold text-cyan-300 uppercase tracking-wider mb-4">
             <Briefcase className="h-3 w-3 text-[#48e5c2]" />
-            <span>Career</span>
+            <span>Track Record</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            Work Experience
+            Enterprise Engagements
           </h2>
         </motion.div>
 

@@ -154,7 +154,6 @@ const projects: Project[] = [
     category: 'E-Commerce',
     badgeText: 'Recent Project',
     image: '/ecommerce.png',
-    githubUrl: 'https://github.com/MuhammadAliRaxa/E-Commerce',
     shortDescription:
       'Full-featured cross-platform e-commerce app with real-time Firestore data sync, dynamic cart management, and an intelligent AI support chatbot for automated customer inquiries and product discovery.',
     fullDescription:

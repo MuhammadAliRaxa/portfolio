@@ -9,8 +9,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Muhammad Ali Raza | Flutter & Mobile App Developer',
-  description: 'Portfolio of Muhammad Ali Raza — Results-driven Flutter Developer & CS Graduate with 15+ production apps shipped for Android and iOS using clean architecture, Bloc, Riverpod, and Firebase.',
+  title: 'Apex Mobile Labs | Enterprise Mobile App Engineering Studio',
+  description: 'Apex Mobile Labs architects and delivers mission-critical cross-platform mobile applications for iOS and Android using Flutter, Clean Architecture, and scalable cloud systems.',
 }
 
 export default function RootLayout({

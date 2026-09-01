@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { FolderGit2, Briefcase, Cpu, Send, Compass } from 'lucide-react'
 
 interface NavLink {
@@ -69,21 +68,19 @@ const Header: React.FC = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="relative h-9 w-9 overflow-hidden rounded-full border border-cyan-500/30 bg-[#0c121e] p-0.5 shadow-sm">
-              <Image
-                src="/profile-v3.jpg"
-                alt="Muhammad Ali Raza"
-                width={36}
-                height={36}
-                className="h-full w-full rounded-full object-cover object-[center_top]"
-              />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-500/30 bg-gradient-to-br from-cyan-950/80 to-[#0c121e] p-2 shadow-lg shadow-cyan-950/50">
+              <svg className="h-5 w-5 text-[#48e5c2]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
             </div>
             <div>
               <span className="text-base font-bold text-white tracking-tight sm:text-lg">
-                Muhammad Ali Raza
+                Apex Mobile Labs
               </span>
               <p className="hidden sm:block text-[11px] font-mono font-medium text-cyan-400/80">
-                Flutter & Mobile App Engineer
+                Enterprise Mobile Studio
               </p>
             </div>
           </motion.div>

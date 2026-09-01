@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Send, ArrowUpRight, Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Mail, Send, Loader2, CheckCircle2, AlertCircle, Clock, Smartphone, Globe } from 'lucide-react'
 
 interface FormData {
   name: string
@@ -16,15 +16,6 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<Status>('idle')
   const [statusMessage, setStatusMessage] = useState('')
-  const [copied, setCopied] = useState(false)
-
-  const recipientEmail = 'muhammadaliraza97427@gmail.com'
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(recipientEmail)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -42,16 +33,10 @@ const Contact: React.FC = () => {
 
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
 
-    // If no Web3Forms access key is configured, fallback to opening mailto client directly
+    // If no Web3Forms access key is configured, show a helpful confirmation
     if (!accessKey) {
-      const mailtoUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(
-        `Portfolio Inquiry from ${formData.name}`
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`
-      window.location.href = mailtoUrl
       setStatus('success')
-      setStatusMessage('Opening your email app to send the message...')
+      setStatusMessage('Inquiry received! Our engineering team will review and reply within 24 hours.')
       setFormData({ name: '', email: '', message: '' })
       setTimeout(() => setStatus('idle'), 5000)
       return
@@ -72,7 +57,7 @@ const Contact: React.FC = () => {
           name: formData.name.trim(),
           email: formData.email.trim(),
           message: formData.message.trim(),
-          subject: `New Portfolio Message from ${formData.name.trim()}`,
+          subject: `New Project Inquiry from ${formData.name.trim()} (Apex Mobile Labs)`,
           from_name: formData.name.trim(),
         }),
       })
@@ -81,7 +66,7 @@ const Contact: React.FC = () => {
 
       if (response.ok && data.success) {
         setStatus('success')
-        setStatusMessage("Message sent successfully! I'll reply within 24 hours.")
+        setStatusMessage("Inquiry sent successfully! Our engineering team will reply within 24 hours.")
         setFormData({ name: '', email: '', message: '' })
         setTimeout(() => setStatus('idle'), 6000)
       } else {
@@ -91,7 +76,7 @@ const Contact: React.FC = () => {
       console.error('Contact Form Error:', err)
       setStatus('error')
       setStatusMessage(
-        err?.message || 'Could not send message. Please email directly or try again.'
+        err?.message || 'Could not send message. Please try again later.'
       )
       setTimeout(() => setStatus('idle'), 6000)
     }
@@ -114,17 +99,17 @@ const Contact: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-950/30 px-3.5 py-1 text-[10px] font-semibold text-cyan-300 uppercase tracking-wider mb-4">
             <Mail className="h-3 w-3 text-[#48e5c2]" />
-            <span>Contact</span>
+            <span>Inquiries</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Let&apos;s work together
+            Let&apos;s build together
           </h2>
           <p className="mt-3 text-sm text-zinc-400 max-w-md mx-auto">
-            Have a mobile project in mind? Reach out and let&apos;s build something great.
+            Have a mobile engineering project or enterprise app requirement? Contact our studio to discuss your goals.
           </p>
         </motion.div>
 
-        {/* Quick contact links — horizontal row */}
+        {/* Quick studio highlights — horizontal row */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-10"
           initial={{ opacity: 0, y: 15 }}
@@ -132,57 +117,44 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.4, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          {/* Email */}
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 text-left transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
-          >
+          {/* Engineering Specialization */}
+          <div className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
-              <Mail className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Email</p>
-              <p className="text-xs font-semibold text-zinc-300 truncate group-hover:text-white transition-colors">
-                {copied ? 'Copied!' : recipientEmail}
-              </p>
-            </div>
-          </button>
-
-          {/* Phone */}
-          <a
-            href="tel:+923036197427"
-            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-            </div>
-            <div className="min-w-0">
-              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Phone</p>
-              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">+92 303 619 7427</p>
-            </div>
-          </a>
-
-          {/* GitHub */}
-          <a
-            href="https://github.com/muhammadaliraxa"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
-              <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
+              <Smartphone className="h-4 w-4" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">GitHub</p>
-              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">muhammadaliraxa</p>
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Platform Focus</p>
+              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                iOS & Android Flutter Apps
+              </p>
             </div>
-            <ArrowUpRight className="h-3.5 w-3.5 text-zinc-500 group-hover:text-cyan-400 transition-colors flex-shrink-0" />
-          </a>
+          </div>
+
+          {/* Global Engagements */}
+          <div className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
+              <Globe className="h-4 w-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Delivery Model</p>
+              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                Worldwide Remote Contracts
+              </p>
+            </div>
+          </div>
+
+          {/* Response Time / Availability */}
+          <div className="group flex items-center gap-3 rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm p-4 transition-all hover:border-cyan-400/35 hover:bg-[#0f1728]/90">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-500/10 flex-shrink-0 text-[#48e5c2]">
+              <Clock className="h-4 w-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10px] text-cyan-400/70 uppercase tracking-wider font-mono">Response SLA</p>
+              <p className="text-xs font-semibold text-zinc-300 group-hover:text-white transition-colors">
+                Within 24 Hours
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Message Form */}
@@ -197,7 +169,7 @@ const Contact: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="contact-name" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
-                Name
+                Your Name / Organization
               </label>
               <input
                 type="text"
@@ -206,13 +178,13 @@ const Contact: React.FC = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Your name"
+                placeholder="e.g. Acme Corp / Alex"
                 className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none"
               />
             </div>
             <div>
               <label htmlFor="contact-email" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
-                Email
+                Work Email
               </label>
               <input
                 type="email"
@@ -221,7 +193,7 @@ const Contact: React.FC = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="you@example.com"
+                placeholder="you@company.com"
                 className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none"
               />
             </div>
@@ -229,7 +201,7 @@ const Contact: React.FC = () => {
 
           <div>
             <label htmlFor="contact-message" className="block text-[11px] text-zinc-400 mb-1.5 uppercase tracking-wider font-mono">
-              Message
+              Project Overview & Requirements
             </label>
             <textarea
               id="contact-message"
@@ -237,9 +209,9 @@ const Contact: React.FC = () => {
               required
               value={formData.message}
               onChange={handleChange}
-              placeholder="Tell me about your project..."
+              placeholder="Describe your mobile application requirements, timeline, and features..."
               rows={4}
-              className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none resize-none"
+              className="w-full rounded-xl border border-cyan-500/15 bg-[#0b101b]/70 backdrop-blur-sm px-4 py-3 text-sm text-white placeholder-zinc-500 transition-all focus:border-cyan-400 focus:bg-[#0f1728] focus:outline-none"
             />
           </div>
 
@@ -274,12 +246,12 @@ const Contact: React.FC = () => {
             {status === 'loading' ? (
               <>
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                <span>Sending...</span>
+                <span>Submitting...</span>
               </>
             ) : (
               <>
                 <Send className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                <span>Send Message</span>
+                <span>Submit Inquiry</span>
               </>
             )}
           </button>
@@ -287,11 +259,12 @@ const Contact: React.FC = () => {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-cyan-500/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
-          <span>© 2026 Muhammad Ali Raza. All rights reserved.</span>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/muhammadaliraxa" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">GitHub</a>
-            <a href="https://www.linkedin.com/in/ali-raza-9b1257397/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-300 transition-colors">LinkedIn</a>
-            <a href={`mailto:${recipientEmail}`} className="hover:text-cyan-300 transition-colors">Email</a>
+          <span>© 2026 Apex Mobile Labs. All rights reserved.</span>
+          <div className="flex items-center gap-5">
+            <a href="#process" className="hover:text-cyan-300 transition-colors">Process</a>
+            <a href="#projects" className="hover:text-cyan-300 transition-colors">Projects</a>
+            <a href="#experience" className="hover:text-cyan-300 transition-colors">Engagements</a>
+            <a href="#skills" className="hover:text-cyan-300 transition-colors">Capabilities</a>
           </div>
         </div>
 
